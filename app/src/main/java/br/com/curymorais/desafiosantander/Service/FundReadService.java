@@ -5,13 +5,6 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import br.com.curymorais.desafiosantander.domain.dto.CellDTO;
-import br.com.curymorais.desafiosantander.domain.dto.FieldDTO;
 import br.com.curymorais.desafiosantander.domain.dto.FundDTO;
 import br.com.curymorais.desafiosantander.util.RetrofitHelper;
 import br.com.curymorais.desafiosantander.ws.SantanderEndpoint;
@@ -52,7 +45,7 @@ public class FundReadService extends IntentService {
 
                 if(response.isSuccessful()){
                     Log.i(TAG, "resposta com sucesso!!!");
-                    FundDTO fundDTO = response.body();
+//                    FundDTO fundDTO = response.body();
 
 
                     resposta.putExtra("encontrou", Boolean.TRUE);

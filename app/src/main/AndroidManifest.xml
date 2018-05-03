@@ -34,5 +34,6 @@
         <activity android:name=".controller.FundActivity"/>
 
         <service android:name=".Service.FormReadService"/>
+        <service android:name=".Service.FundReadService"/>
     </application>
 </manifest>

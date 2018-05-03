@@ -1,6 +1,8 @@
 package br.com.curymorais.desafiosantander.controller;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.curymorais.desafiosantander.R;
+import br.com.curymorais.desafiosantander.Service.FormReadService;
+import br.com.curymorais.desafiosantander.Service.FundReadService;
 import br.com.curymorais.desafiosantander.domain.dto.FieldDTO;
 
 public class FundActivity extends RootActivity {
@@ -23,6 +27,23 @@ public class FundActivity extends RootActivity {
     private List<FieldDTO> listaFields = new ArrayList<>();
     Typeface typeFont ;
     List<View> listaObjetos;
+
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            boolean encontrado;
+            Log.i(TAG, "Receiver recebeu!");
+//            listaFields = (List<FieldDTO>) intent.getSerializableExtra("fields");
+            encontrado = (Boolean) intent.getSerializableExtra("encontrou");
+
+            if (encontrado){
+                Log.i(TAG, "Campos encontrados! ");
+            }else{
+                Log.i(TAG, "Campos NAO encontrados!");
+            }
+            buildView();
+        }
+    };
 
     private View.OnClickListener startContact = new View.OnClickListener() {
         @Override
@@ -46,7 +67,13 @@ public class FundActivity extends RootActivity {
                 finish();
             }
         });
+        startService(getApplicationContext());
 //        buildView();
+    }
+
+    private void startService( Context c) {
+        Intent i = new Intent(c, FundReadService.class);
+        c.startService(i);
     }
 
     @SuppressLint("ResourceType")
