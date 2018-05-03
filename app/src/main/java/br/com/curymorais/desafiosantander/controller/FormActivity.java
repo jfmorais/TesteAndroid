@@ -16,6 +16,8 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +68,25 @@ public class FormActivity extends RootActivity{
         }
     };
 
+    private View.OnClickListener setEmail = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            for (int i = 0; i < listaObjetos.size();i++) {
+                if (listaObjetos.get(i) instanceof EditTextSantander){
+                    if(((EditTextSantander) listaObjetos.get(i)).getInputType()== InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS){
+                        if (listaObjetos.get(i).getVisibility() == View.GONE) {
+                            Log.i(TAG,"Deixando email visivel");
+                            listaObjetos.get(i).setVisibility(View.VISIBLE);
+                        }else if (listaObjetos.get(i).getVisibility() == View.VISIBLE){
+                            Log.i(TAG,"Escondendo email");
+                            listaObjetos.get(i).setVisibility(View.GONE);
+                        }
+                    }
+                }
+            }
+        }
+    };
+
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -89,6 +110,9 @@ public class FormActivity extends RootActivity{
         typeFont = ResourcesCompat.getFont(getApplicationContext(), R.font.dinpromedium);
         setContentView(R.layout.form_view);
         startService(getApplicationContext());
+        TextView btnInvestimento = findViewById(R.id.btn_investimento);
+
+        btnInvestimento.setOnClickListener(startFund);
     }
 
     @Override
@@ -115,26 +139,28 @@ public class FormActivity extends RootActivity{
         ConstraintSet set = new ConstraintSet();
         set.clone(layout);
         listaObjetos = new ArrayList<>();
-        Button investimentos = new Button(this);
-        Button contato = new Button(this);
 
         for (FieldDTO f : listaFields){
             switch (f.getType()) {
                 case 1:
-//                    listaObjetos.add(FieldBuilder.getEditTextFromField(f, this));
-                    listaObjetos.add(FieldBuilder.getEditTextSantanderFromField(f,this));
+                    //listaObjetos.add(FieldBuilder.getEditTextFromField(f, this));
+                    listaObjetos.add(FieldBuilder.getEditTextSantanderFromField(f, this));
                     break;
                 case 2:
-                    listaObjetos.add(FieldBuilder.getTextViewFromField(f,this));
+                    listaObjetos.add(FieldBuilder.getTextViewFromField(f, this));
                     break;
                 case 4:
-                    listaObjetos.add(FieldBuilder.getCheckBoxFromField(f,this));
+                    CheckBox ch = FieldBuilder.getCheckBoxFromField(f, this);
+                    ch.setOnClickListener(setEmail);
+                    listaObjetos.add(ch);
                     break;
                 case 5:
-                    Button b = FieldBuilder.getButtonViewFromField(f,this);
+                    Button b = FieldBuilder.getButtonViewFromField(f, this);
                     b.setOnClickListener(startFormResponse);
+                    b.setBackground(getResources().getDrawable(R.drawable.background_btn));
+                    b.setTextColor(getResources().getColor(R.color.colorPrimary));
                     listaObjetos.add(b);
-                    break;
+                     break;
             }
         }
 
@@ -149,6 +175,7 @@ public class FormActivity extends RootActivity{
                 set.applyTo(layout);
             }
             else {
+                Log.i(TAG,"Visibilidade"+ listaObjetos.get(i).getVisibility());
                 layout.addView(listaObjetos.get(i));
                 set.connect(listaObjetos.get(i).getId(), ConstraintSet.LEFT,ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
                 set.connect(listaObjetos.get(i).getId(), ConstraintSet.RIGHT,ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
@@ -159,25 +186,25 @@ public class FormActivity extends RootActivity{
             }
         }
 
-        investimentos.setText("investimentos");
-        investimentos.setOnClickListener(startFund);
-        investimentos.setId(100);
-        layout.addView(investimentos);
-        set.connect(investimentos.getId(), ConstraintSet.LEFT,ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
-        set.connect(investimentos.getId(), ConstraintSet.RIGHT,contato.getId(), ConstraintSet.LEFT, 0);
-        set.connect(investimentos.getId(), ConstraintSet.BOTTOM,ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
-        set.constrainHeight(investimentos.getId(), 200);
-        set.constrainWidth(investimentos.getId(), 700);
-        set.applyTo(layout);
-
-        contato.setText("contato");
-        layout.addView(contato);
-        set.connect(contato.getId(), ConstraintSet.LEFT,investimentos.getId(), ConstraintSet.RIGHT, 0);
-        set.connect(contato.getId(), ConstraintSet.RIGHT,ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-        set.connect(contato.getId(), ConstraintSet.BOTTOM,ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
-        set.constrainHeight(contato.getId(), 200);
-        set.constrainWidth(contato.getId(), 700);
-        set.applyTo(layout);
+//        investimentos.setText("investimentos");
+//        investimentos.setOnClickListener(startFund);
+//        investimentos.setId(100);
+//        layout.addView(investimentos);
+//        set.connect(investimentos.getId(), ConstraintSet.LEFT,ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
+//        set.connect(investimentos.getId(), ConstraintSet.RIGHT,contato.getId(), ConstraintSet.LEFT, 0);
+//        set.connect(investimentos.getId(), ConstraintSet.BOTTOM,ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
+//        set.constrainHeight(investimentos.getId(), 200);
+//        set.constrainWidth(investimentos.getId(), 700);
+//        set.applyTo(layout);
+//
+//        contato.setText("contato");
+//        layout.addView(contato);
+//        set.connect(contato.getId(), ConstraintSet.LEFT,investimentos.getId(), ConstraintSet.RIGHT, 0);
+//        set.connect(contato.getId(), ConstraintSet.RIGHT,ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
+//        set.connect(contato.getId(), ConstraintSet.BOTTOM,ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
+//        set.constrainHeight(contato.getId(), 200);
+//        set.constrainWidth(contato.getId(), 700);
+//        set.applyTo(layout);
     }
 
 }

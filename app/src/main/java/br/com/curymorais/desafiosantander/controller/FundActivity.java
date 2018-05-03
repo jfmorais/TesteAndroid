@@ -10,6 +10,7 @@ import android.support.constraint.ConstraintSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,37 +36,26 @@ public class FundActivity extends RootActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fund_view);
-        buildView();
+
+        TextView btnContato = findViewById(R.id.btn_contato);
+
+        btnContato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FundActivity.this, FormActivity.class));
+                finish();
+            }
+        });
+//        buildView();
     }
 
     @SuppressLint("ResourceType")
     public void buildView() {
         Log.i(TAG,"Construindo a view");
-        ConstraintLayout layout = findViewById(R.id.fund_view);
+        @SuppressLint("WrongViewCast") ConstraintLayout layout = findViewById(R.id.fund_view);
         ConstraintSet set = new ConstraintSet();
         set.clone(layout);
         listaObjetos = new ArrayList<>();
-        Button investimentos = new Button(this);
-        Button contato = new Button(this);
 
-        investimentos.setText("investimentos");
-        investimentos.setId(100);
-        layout.addView(investimentos);
-        set.connect(investimentos.getId(), ConstraintSet.LEFT,ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
-        set.connect(investimentos.getId(), ConstraintSet.RIGHT,contato.getId(), ConstraintSet.LEFT, 0);
-        set.connect(investimentos.getId(), ConstraintSet.BOTTOM,ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
-        set.constrainHeight(investimentos.getId(), 200);
-        set.constrainWidth(investimentos.getId(), 700);
-        set.applyTo(layout);
-
-        contato.setText("contato");
-        contato.setOnClickListener(startContact);
-        layout.addView(contato);
-        set.connect(contato.getId(), ConstraintSet.LEFT,investimentos.getId(), ConstraintSet.RIGHT, 0);
-        set.connect(contato.getId(), ConstraintSet.RIGHT,ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-        set.connect(contato.getId(), ConstraintSet.BOTTOM,ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
-        set.constrainHeight(contato.getId(), 200);
-        set.constrainWidth(contato.getId(), 700);
-        set.applyTo(layout);
     }
 }

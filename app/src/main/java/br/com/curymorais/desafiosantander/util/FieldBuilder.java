@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,9 @@ public class FieldBuilder {
         TextView t = new TextView(c);
         t.setId(f.getId());
         t.setText(f.getMessage());
+        if (f.isHidden()){
+            t.setVisibility(View.INVISIBLE);
+        }
         return  t;
     }
 
@@ -40,6 +44,9 @@ public class FieldBuilder {
         Button b = new Button(c);
         b.setId(f.getId());
         b.setText(f.getMessage());
+        if (f.isHidden()){
+            b.setVisibility(View.INVISIBLE);
+        }
         return b;
     }
 
@@ -47,6 +54,10 @@ public class FieldBuilder {
         CheckBox ch = new CheckBox(c);
         ch.setText(f.getMessage());
         ch.setId(f.getId());
+        if (f.isHidden()){
+            ch.setVisibility(View.INVISIBLE);
+        }
+        ch.setChecked(true);
         return  ch;
     }
 
@@ -67,6 +78,7 @@ public class FieldBuilder {
         }else if (f.getMessage().equalsIgnoreCase("email")){
             et.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         }
+
         return et;
     }
 }
