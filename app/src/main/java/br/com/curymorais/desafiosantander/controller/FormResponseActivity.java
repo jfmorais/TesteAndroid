@@ -63,7 +63,7 @@ public class FormResponseActivity extends RootActivity {
         layout.addView(name);
         set.connect(name.getId(), ConstraintSet.LEFT,ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
         set.connect(name.getId(), ConstraintSet.RIGHT,ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-        set.connect(name.getId(), ConstraintSet.TOP,ConstraintSet.PARENT_ID, ConstraintSet.TOP, 600);
+        set.connect(name.getId(), ConstraintSet.TOP,ConstraintSet.PARENT_ID, ConstraintSet.TOP, 400);
         set.constrainHeight(name.getId(), ConstraintSet.WRAP_CONTENT);
         set.constrainWidth(name.getId(), ConstraintSet.WRAP_CONTENT);
         set.applyTo(layout);
@@ -82,8 +82,8 @@ public class FormResponseActivity extends RootActivity {
         set.constrainWidth(mensagem.getId(), ConstraintSet.WRAP_CONTENT);
         set.applyTo(layout);
 
-        Button btnContato = new Button(this);
-        Button btnInvestimentos = new Button(this);
+        TextView btnContato = findViewById(R.id.btn_contato);
+        TextView btnInvestimentos = findViewById(R.id.btn_investimento);
 
         btnContato.setOnClickListener(new View.OnClickListener() {
             @Override

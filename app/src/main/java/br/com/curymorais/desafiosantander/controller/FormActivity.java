@@ -38,17 +38,26 @@ public class FormActivity extends RootActivity{
         public void onClick(View v) {
             Intent myIntent = new Intent(getApplicationContext(), FormResponseActivity.class);
             boolean verified = true;
+            boolean validaMail = true;
             Log.i(TAG,"Verificando conteudo dos campos...");
             for (View x: listaObjetos){
                 if (x instanceof EditTextSantander){
                     if(((EditTextSantander) x).isRequired() && ((EditTextSantander) x).getText().toString().equalsIgnoreCase("")){
                         verified = false;
+                        Toast.makeText(getApplicationContext(),"Necessário preencher os campos!",Toast.LENGTH_LONG).show();
+
                     }
-                    if(((EditTextSantander) x).getInputType() == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS && !android.util.Patterns.EMAIL_ADDRESS.matcher(((EditTextSantander) x).getText()).matches()){
+                    if(((EditTextSantander) x).getInputType() == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS && validaMail && !android.util.Patterns.EMAIL_ADDRESS.matcher(((EditTextSantander) x).getText()).matches()){
                         verified = false;
                         Toast.makeText(getApplicationContext(),"E-mail com formato invalido!",Toast.LENGTH_LONG).show();
                     }
                     myIntent.putExtra("field"+((EditTextSantander) x).getHint(), ((EditTextSantander) x).getText().toString());
+                } else if (x instanceof CheckBox){
+                    if(((CheckBox) x).isChecked()){
+                        validaMail = true;
+                    }else {
+                        validaMail = false;
+                    }
                 }
             }
             Log.i(TAG,"iniciar nova atividade? "+verified);
@@ -175,7 +184,6 @@ public class FormActivity extends RootActivity{
                 set.applyTo(layout);
             }
             else {
-                Log.i(TAG,"Visibilidade"+ listaObjetos.get(i).getVisibility());
                 layout.addView(listaObjetos.get(i));
                 set.connect(listaObjetos.get(i).getId(), ConstraintSet.LEFT,ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
                 set.connect(listaObjetos.get(i).getId(), ConstraintSet.RIGHT,ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
