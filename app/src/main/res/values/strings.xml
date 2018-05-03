@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DesafioSantander</string>
+    <string name="cell_url">https://floating-mountain-50292.herokuapp.com/</string>
+</resources>
