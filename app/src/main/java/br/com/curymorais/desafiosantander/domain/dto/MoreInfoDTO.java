@@ -7,8 +7,9 @@ import java.io.Serializable;
 public class MoreInfoDTO implements Serializable {
     private MonthDTO month;
     private YearDTO year;
-    @SerializedName("12Month")
-    private Is12Month is12Month;
+
+    @SerializedName("12months")
+    private twelve12Months twelve12Months;
 
     public MonthDTO getMonth() {
         return month;
@@ -26,11 +27,11 @@ public class MoreInfoDTO implements Serializable {
         this.year = year;
     }
 
-    public Is12Month getIs12Month() {
-        return is12Month;
+    public twelve12Months getTwelve12Months() {
+        return twelve12Months;
     }
 
-    public void setIs12Month(Is12Month is12Month) {
-        this.is12Month = is12Month;
+    public void setTwelve12Months(twelve12Months twelve12Months) {
+        this.twelve12Months = twelve12Months;
     }
 }

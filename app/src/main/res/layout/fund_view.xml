@@ -111,14 +111,14 @@
             app:layout_constraintTop_toBottomOf="@id/risk_title">
 
             <ImageView
-                android:id="@+id/risk_um"
+                android:id="@+id/risk_one"
                 style="@style/CustomViewRisk"
                 android:layout_height="8dp"
                 android:contentDescription="@string/valor_de_risco"
                 android:src="@drawable/risco_um" />
 
             <ImageView
-                android:id="@+id/risk_dois"
+                android:id="@+id/risk_two"
                 style="@style/CustomViewRisk"
                 android:layout_height="8dp"
                 android:layout_marginStart="1dp"
@@ -126,7 +126,7 @@
                 android:src="@drawable/risco_dois" />
 
             <ImageView
-                android:id="@+id/risk_tres"
+                android:id="@+id/risk_three"
                 style="@style/CustomViewRisk"
                 android:layout_height="8dp"
                 android:layout_marginStart="1dp"
@@ -134,7 +134,7 @@
                 android:src="@drawable/risco_tres" />
 
             <ImageView
-                android:id="@+id/risk_quatro"
+                android:id="@+id/risk_four"
                 style="@style/CustomViewRisk"
                 android:layout_height="8dp"
                 android:layout_marginStart="1dp"
@@ -142,7 +142,7 @@
                 android:src="@drawable/risco_quatro" />
 
             <ImageView
-                android:id="@+id/risk_cinco"
+                android:id="@+id/risk_five"
                 style="@style/CustomViewRisk"
                 android:layout_height="8dp"
                 android:layout_marginStart="1dp"
@@ -208,7 +208,7 @@
                 android:text="@string/more_info_month" />
 
             <TextView
-                android:id="@+id/info_month_fund"
+                android:id="@+id/month_fund"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -216,7 +216,7 @@
                 tools:text="0,3.%" />
 
             <TextView
-                android:id="@+id/info_month_cdi"
+                android:id="@+id/month_cdi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -243,7 +243,7 @@
                 android:text="@string/more_info_year" />
 
             <TextView
-                android:id="@+id/info_year_fund"
+                android:id="@+id/year_fund"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -251,7 +251,7 @@
                 tools:text="13,01%" />
 
             <TextView
-                android:id="@+id/info_year_cdi"
+                android:id="@+id/year_cdi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -278,7 +278,7 @@
                 android:text="@string/more_info_twelve_month" />
 
             <TextView
-                android:id="@+id/info_twelve_fund"
+                android:id="@+id/twelve_fund"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -286,7 +286,7 @@
                 tools:text="17.9%" />
 
             <TextView
-                android:id="@+id/info_twelve_cdi"
+                android:id="@+id/twelve_cdi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -307,7 +307,7 @@
             app:layout_constraintTop_toBottomOf="@+id/layout_more_info_twelve_month" />
 
 
-        <android.support.v7.widget.RecyclerView
+        <!--<android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -330,7 +330,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recycler_info">
 
-        </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>-->
+
+        <LinearLayout
+            android:id="@+id/layout_list_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/view2">
+
+            <TextView
+                android:id="@+id/text_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                tools:text="17.9%" />
+
+            <TextView
+                android:id="@+id/text_info_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                tools:text="17,6%" />
+        </LinearLayout>
+
+
+
 
         <TextView
             android:id="@+id/btn_investir"
@@ -349,7 +379,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recycler_down" />
+            app:layout_constraintTop_toBottomOf="@id/layout_list_info" />
 
         <include layout="@layout/menu_bottom_view" />
 

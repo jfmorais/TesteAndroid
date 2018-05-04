@@ -2,7 +2,7 @@ package br.com.curymorais.desafiosantander.domain.dto;
 
 import java.io.Serializable;
 
-class Is12Month implements Serializable{
+public class twelve12Months implements Serializable{
     private double fund;
     private double CDI;
 

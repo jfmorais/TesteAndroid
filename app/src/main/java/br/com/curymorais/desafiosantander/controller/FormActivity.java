@@ -32,32 +32,36 @@ public class FormActivity extends RootActivity{
     private List<FieldDTO> listaFields = new ArrayList<>();
     Typeface typeFont ;
     List<View> listaObjetos;
+    boolean validaMail = true;
 
     private View.OnClickListener startFormResponse = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent myIntent = new Intent(getApplicationContext(), FormResponseActivity.class);
             boolean verified = true;
-            boolean validaMail = true;
+
             Log.i(TAG,"Verificando conteudo dos campos...");
             for (View x: listaObjetos){
-                if (x instanceof EditTextSantander){
-                    if(((EditTextSantander) x).isRequired() && ((EditTextSantander) x).getText().toString().equalsIgnoreCase("")){
+                if (x instanceof CheckBox){
+                    Log.i(TAG,"Validando checkbox");
+                    if(((CheckBox) x).isChecked()){
+                        Log.i(TAG,"Validar o email");
+                        validaMail = true;
+                    }else {
+                        Log.i(TAG,"Nao Validar o email");
+                        validaMail = false;
+                    }
+                }else if (x instanceof EditTextSantander){
+                    Log.i(TAG,"email " +validaMail);
+                    if(((EditTextSantander) x).isRequired() && validaMail &&((EditTextSantander) x).getText().toString().equalsIgnoreCase("")){
                         verified = false;
                         Toast.makeText(getApplicationContext(),"Necessário preencher os campos!",Toast.LENGTH_LONG).show();
-
                     }
                     if(((EditTextSantander) x).getInputType() == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS && validaMail && !android.util.Patterns.EMAIL_ADDRESS.matcher(((EditTextSantander) x).getText()).matches()){
                         verified = false;
                         Toast.makeText(getApplicationContext(),"E-mail com formato invalido!",Toast.LENGTH_LONG).show();
                     }
                     myIntent.putExtra("field"+((EditTextSantander) x).getHint(), ((EditTextSantander) x).getText().toString());
-                } else if (x instanceof CheckBox){
-                    if(((CheckBox) x).isChecked()){
-                        validaMail = true;
-                    }else {
-                        validaMail = false;
-                    }
                 }
             }
             Log.i(TAG,"iniciar nova atividade? "+verified);

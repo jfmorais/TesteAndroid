@@ -43,8 +43,26 @@ public class FormResponseActivity extends RootActivity {
         super.onCreate(savedInstanceState);
         typeFont = ResourcesCompat.getFont(getApplicationContext(), R.font.dinpromedium);
         setContentView(R.layout.form_reponse_view);
-        buildView();
+        Intent intent = getIntent();
 
+//        buildView();
+        TextView nome = findViewById(R.id.text_nome);
+        TextView mensagem = findViewById(R.id.text_mensagem);
+
+        nome.setText(intent.getStringExtra("fieldNome completo"));
+        nome.setTextSize(20);
+        nome.setTypeface(typeFont);
+
+        mensagem.setText("Mensagem Enviada com sucesso!!");
+        mensagem.setGravity(Gravity.CENTER);
+        mensagem.setTextSize(30);
+        mensagem.setTypeface(typeFont);
+
+        TextView btnContato = findViewById(R.id.btn_contato);
+        TextView btnInvestimentos = findViewById(R.id.btn_investimento);
+
+        btnContato.setOnClickListener(startContact);
+        btnInvestimentos.setOnClickListener(startFund);
     }
 
     @SuppressLint("ResourceType")
@@ -77,50 +95,11 @@ public class FormResponseActivity extends RootActivity {
         layout.addView(mensagem);
         set.connect(mensagem.getId(), ConstraintSet.LEFT,ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
         set.connect(mensagem.getId(), ConstraintSet.RIGHT,ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-        set.connect(mensagem.getId(), ConstraintSet.TOP,name.getId(), ConstraintSet.BOTTOM, 200);
+        set.connect(mensagem.getId(), ConstraintSet.TOP,name.getId(), ConstraintSet.BOTTOM, 0);
         set.constrainHeight(mensagem.getId(), ConstraintSet.WRAP_CONTENT);
         set.constrainWidth(mensagem.getId(), ConstraintSet.WRAP_CONTENT);
         set.applyTo(layout);
 
-        TextView btnContato = findViewById(R.id.btn_contato);
-        TextView btnInvestimentos = findViewById(R.id.btn_investimento);
 
-        btnContato.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(FormResponseActivity.this, FormActivity.class));
-                finish();
-            }
-        });
-
-        btnInvestimentos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(FormResponseActivity.this, FundActivity.class));
-                finish();
-            }
-        });
-
-//        investimentos.setText("investimentos");
-//        investimentos.setOnClickListener(startFund);
-//        investimentos.setId(2000);
-//        layout.addView(investimentos);
-//        set.connect(investimentos.getId(), ConstraintSet.LEFT,ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
-//        set.connect(investimentos.getId(), ConstraintSet.RIGHT,contato.getId(), ConstraintSet.LEFT, 0);
-//        set.connect(investimentos.getId(), ConstraintSet.BOTTOM,ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
-//        set.constrainHeight(investimentos.getId(), 200);
-//        set.constrainWidth(investimentos.getId(), 700);
-//        set.applyTo(layout);
-//
-//
-//        contato.setText("contato");
-//        contato.setOnClickListener(startContact);
-//        layout.addView(contato);
-//        set.connect(contato.getId(), ConstraintSet.LEFT,investimentos.getId(), ConstraintSet.RIGHT, 0);
-//        set.connect(contato.getId(), ConstraintSet.RIGHT,ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-//        set.connect(contato.getId(), ConstraintSet.BOTTOM,ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
-//        set.constrainHeight(contato.getId(), 200);
-//        set.constrainWidth(contato.getId(), 700);
-//        set.applyTo(layout);
     }
 }

@@ -2,7 +2,7 @@ package br.com.curymorais.desafiosantander.domain.dto;
 
 import java.io.Serializable;
 
-class YearDTO implements Serializable{
+public class YearDTO implements Serializable{
     private double fund;
     private double CDI;
 

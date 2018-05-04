@@ -11,19 +11,22 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.curymorais.desafiosantander.R;
-import br.com.curymorais.desafiosantander.Service.FormReadService;
 import br.com.curymorais.desafiosantander.Service.FundReadService;
 import br.com.curymorais.desafiosantander.domain.dto.FieldDTO;
 import br.com.curymorais.desafiosantander.domain.dto.FundDTO;
+import br.com.curymorais.desafiosantander.domain.dto.InfoDTO;
+import br.com.curymorais.desafiosantander.domain.dto.MoreInfoDTO;
 import br.com.curymorais.desafiosantander.domain.dto.ScreenDTO;
 
 public class FundActivity extends RootActivity {
@@ -73,7 +76,6 @@ public class FundActivity extends RootActivity {
             }
         });
         startService(getApplicationContext());
-//        buildView();
     }
 
     @Override
@@ -93,23 +95,88 @@ public class FundActivity extends RootActivity {
         @SuppressLint("WrongViewCast") ConstraintLayout layout = findViewById(R.id.constraint_invest);
         ConstraintSet set = new ConstraintSet();
         set.clone(layout);
+        RecyclerView recyclerViewInfo;
+        RecyclerView recyclerViewDown;
 
+        //text titles
         TextView title = findViewById(R.id.title);
-        title.setText(screenDTO.getTitle());
-
         TextView fundName = findViewById(R.id.fund_name);
-        fundName.setText(screenDTO.getFundName());
-
         TextView whatsIs = findViewById(R.id.whats_is);
-        whatsIs.setText(screenDTO.getWhatIs());
-
         TextView definition = findViewById(R.id.definition);
-        definition.setText(screenDTO.getDefinition());
-
         TextView riskTitle = findViewById(R.id.risk_title);
+        TextView infoTitle = findViewById(R.id.info_title);
+
+        //risk bar
+        ImageView riskUm = findViewById(R.id.risk_one);
+        ImageView riskTwo = findViewById(R.id.risk_two);
+        ImageView riskThree = findViewById(R.id.risk_three);
+        ImageView riskFour = findViewById(R.id.risk_four);
+        ImageView riskFive = findViewById(R.id.risk_five);
+
         riskTitle.setText(screenDTO.getRiskTitle());
+        title.setText(screenDTO.getTitle());
+        fundName.setText(screenDTO.getFundName());
+        whatsIs.setText(screenDTO.getWhatIs());
+        definition.setText(screenDTO.getDefinition());
+        infoTitle.setText(screenDTO.getInfoTitle());
 
+        riskUm.setPadding(0,20,0,0);
+        riskTwo.setPadding(0,20,0,0);
+        riskThree.setPadding(0,20,0,0);
+        riskFour.setPadding(0,20,0,0);
+        riskFive.setPadding(0,20,0,0);
 
+        switch (screenDTO.getRisk()){
+            case 1:
+                riskUm.setPadding(0,0,0,0);
+                break;
+            case 2 :
+                riskTwo.setPadding(0,0,0,0);
+                break;
+            case 3:
+                riskThree.setPadding(0,0,0,0);
+                break;
+            case 4:
+                riskFour.setPadding(0,0,0,0);
+                break;
+            case 5:
+                riskFive.setPadding(0,0,0,0);
+                break;
+            default:break;
+        }
+
+        //investiment information
+        MoreInfoDTO moreInfo = screenDTO.getMoreInfo();
+        TextView monthFund = findViewById(R.id.month_fund);
+        TextView monthCdi = findViewById(R.id.month_cdi);
+        TextView yearCdi = findViewById(R.id.year_cdi);
+        TextView yearFund = findViewById(R.id.year_fund);
+        TextView twelveYear = findViewById(R.id.twelve_fund);
+        TextView twelveCdi = findViewById(R.id.twelve_cdi);
+
+        double fundMonth = moreInfo.getMonth().getFund();
+        double cdiMonth = moreInfo.getMonth().getCDI();
+        double fundYear = moreInfo.getYear().getFund();
+        double cdiYear = moreInfo.getYear().getCDI();
+        double fundTwelve = moreInfo.getTwelve12Months().getFund();
+        double cdiFund = moreInfo.getTwelve12Months().getCDI();
+
+        monthFund.setText(String.valueOf(fundMonth));
+        monthCdi.setText(String.valueOf(cdiMonth));
+        yearFund.setText(String.valueOf(fundYear));
+        yearCdi.setText(String.valueOf(cdiYear));
+        twelveYear.setText(String.valueOf(fundTwelve));
+        twelveCdi.setText(String.valueOf(cdiFund));
+
+        //list view
+        TextView DisplayStringArray = findViewById(R.id.text_info);
+        InfoDTO[] arrayInfo = screenDTO.getInfo();
+        for (int i = 0; i < arrayInfo.length;i++){
+            DisplayStringArray.append(arrayInfo[i].getName());
+            DisplayStringArray.append(" ");
+            DisplayStringArray.append(arrayInfo[i].getData());
+            DisplayStringArray.append("\n");
+        }
 
     }
 }
