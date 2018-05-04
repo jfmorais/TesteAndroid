@@ -306,32 +306,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_more_info_twelve_month" />
 
-
-        <!--<android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view2">
-        </android.support.v7.widget.RecyclerView>
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_down"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginStart="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recycler_info">
-
-        </android.support.v7.widget.RecyclerView>-->
-
         <LinearLayout
             android:id="@+id/layout_list_info"
             android:layout_width="match_parent"
@@ -347,7 +321,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="left"
                 tools:text="17.9%" />
 
             <TextView
@@ -359,8 +333,34 @@
                 tools:text="17,6%" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layout_list_down"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/layout_list_info">
 
+            <TextView
+                android:id="@+id/text_down"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                tools:text="17.9%" />
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/layout_img_down"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end">
+
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/btn_investir"
@@ -375,11 +375,12 @@
             android:text="@string/btn_investir"
             android:textAlignment="center"
             android:textColor="@android:color/white"
+            android:onClick="startInvest"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_list_info" />
+            app:layout_constraintTop_toBottomOf="@id/layout_list_down" />
 
         <include layout="@layout/menu_bottom_view" />
 

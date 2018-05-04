@@ -32,18 +32,18 @@ public class FormActivity extends RootActivity{
     private List<FieldDTO> listaFields = new ArrayList<>();
     Typeface typeFont ;
     List<View> listaObjetos;
-    boolean validaMail = true;
+
 
     private View.OnClickListener startFormResponse = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent myIntent = new Intent(getApplicationContext(), FormResponseActivity.class);
             boolean verified = true;
+            boolean validaMail = true;
 
             Log.i(TAG,"Verificando conteudo dos campos...");
             for (View x: listaObjetos){
                 if (x instanceof CheckBox){
-                    Log.i(TAG,"Validando checkbox");
                     if(((CheckBox) x).isChecked()){
                         Log.i(TAG,"Validar o email");
                         validaMail = true;
@@ -51,15 +51,23 @@ public class FormActivity extends RootActivity{
                         Log.i(TAG,"Nao Validar o email");
                         validaMail = false;
                     }
-                }else if (x instanceof EditTextSantander){
-                    Log.i(TAG,"email " +validaMail);
-                    if(((EditTextSantander) x).isRequired() && validaMail &&((EditTextSantander) x).getText().toString().equalsIgnoreCase("")){
+                }
+            }
+            for (View x: listaObjetos){
+               if (x instanceof EditTextSantander){
+                    Log.i(TAG,"email " + validaMail);
+                    if(((EditTextSantander) x).isRequired() &&
+                            ((EditTextSantander) x).getInputType() != InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS &&
+                            ((EditTextSantander) x).getText().toString().equalsIgnoreCase("")){
                         verified = false;
                         Toast.makeText(getApplicationContext(),"Necessário preencher os campos!",Toast.LENGTH_LONG).show();
                     }
-                    if(((EditTextSantander) x).getInputType() == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS && validaMail && !android.util.Patterns.EMAIL_ADDRESS.matcher(((EditTextSantander) x).getText()).matches()){
+                    if(validaMail &&
+                            ((EditTextSantander) x).getInputType() == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS &&
+                            ((EditTextSantander) x).getText().toString().equalsIgnoreCase("") &&
+                            !android.util.Patterns.EMAIL_ADDRESS.matcher(((EditTextSantander) x).getText()).matches()){
                         verified = false;
-                        Toast.makeText(getApplicationContext(),"E-mail com formato invalido!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"E-mail com formato invalido ou nulo!",Toast.LENGTH_LONG).show();
                     }
                     myIntent.putExtra("field"+((EditTextSantander) x).getHint(), ((EditTextSantander) x).getText().toString());
                 }
@@ -67,8 +75,6 @@ public class FormActivity extends RootActivity{
             Log.i(TAG,"iniciar nova atividade? "+verified);
             if (verified) {
                 startActivity(myIntent);
-            }else{
-                Toast.makeText(getApplicationContext(),"Necessario preencher as informacoes!",Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -198,25 +204,6 @@ public class FormActivity extends RootActivity{
             }
         }
 
-//        investimentos.setText("investimentos");
-//        investimentos.setOnClickListener(startFund);
-//        investimentos.setId(100);
-//        layout.addView(investimentos);
-//        set.connect(investimentos.getId(), ConstraintSet.LEFT,ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
-//        set.connect(investimentos.getId(), ConstraintSet.RIGHT,contato.getId(), ConstraintSet.LEFT, 0);
-//        set.connect(investimentos.getId(), ConstraintSet.BOTTOM,ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
-//        set.constrainHeight(investimentos.getId(), 200);
-//        set.constrainWidth(investimentos.getId(), 700);
-//        set.applyTo(layout);
-//
-//        contato.setText("contato");
-//        layout.addView(contato);
-//        set.connect(contato.getId(), ConstraintSet.LEFT,investimentos.getId(), ConstraintSet.RIGHT, 0);
-//        set.connect(contato.getId(), ConstraintSet.RIGHT,ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-//        set.connect(contato.getId(), ConstraintSet.BOTTOM,ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
-//        set.constrainHeight(contato.getId(), 200);
-//        set.constrainWidth(contato.getId(), 700);
-//        set.applyTo(layout);
     }
 
 }

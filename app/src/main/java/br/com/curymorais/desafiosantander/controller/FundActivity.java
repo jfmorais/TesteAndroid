@@ -15,14 +15,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.curymorais.desafiosantander.R;
 import br.com.curymorais.desafiosantander.Service.FundReadService;
+import br.com.curymorais.desafiosantander.domain.dto.DownInfoDTO;
 import br.com.curymorais.desafiosantander.domain.dto.FieldDTO;
 import br.com.curymorais.desafiosantander.domain.dto.FundDTO;
 import br.com.curymorais.desafiosantander.domain.dto.InfoDTO;
@@ -106,6 +110,13 @@ public class FundActivity extends RootActivity {
         TextView riskTitle = findViewById(R.id.risk_title);
         TextView infoTitle = findViewById(R.id.info_title);
 
+        title.setTypeface(typeFont);
+        fundName.setTypeface(typeFont);
+        whatsIs.setTypeface(typeFont);
+        definition.setTypeface(typeFont);
+        riskTitle.setTypeface(typeFont);
+        infoTitle.setTypeface(typeFont);
+
         //risk bar
         ImageView riskUm = findViewById(R.id.risk_one);
         ImageView riskTwo = findViewById(R.id.risk_two);
@@ -154,6 +165,13 @@ public class FundActivity extends RootActivity {
         TextView twelveYear = findViewById(R.id.twelve_fund);
         TextView twelveCdi = findViewById(R.id.twelve_cdi);
 
+        monthFund.setTypeface(typeFont);
+        monthCdi.setTypeface(typeFont);
+        yearCdi.setTypeface(typeFont);
+        yearFund.setTypeface(typeFont);
+        twelveCdi.setTypeface(typeFont);
+        twelveYear.setTypeface(typeFont);
+
         double fundMonth = moreInfo.getMonth().getFund();
         double cdiMonth = moreInfo.getMonth().getCDI();
         double fundYear = moreInfo.getYear().getFund();
@@ -169,14 +187,29 @@ public class FundActivity extends RootActivity {
         twelveCdi.setText(String.valueOf(cdiFund));
 
         //list view
-        TextView DisplayStringArray = findViewById(R.id.text_info);
+        TextView infoName = findViewById(R.id.text_info);
+        TextView infoData = findViewById(R.id.text_info_2);
         InfoDTO[] arrayInfo = screenDTO.getInfo();
         for (int i = 0; i < arrayInfo.length;i++){
-            DisplayStringArray.append(arrayInfo[i].getName());
-            DisplayStringArray.append(" ");
-            DisplayStringArray.append(arrayInfo[i].getData());
-            DisplayStringArray.append("\n");
+            infoName.append(arrayInfo[i].getName());
+            infoData.append(arrayInfo[i].getData());
+            infoName.append("\n");
+            infoData.append("\n");
         }
 
+        //list down
+        TextView downName = findViewById(R.id.text_down);
+        LinearLayout downLayout =  findViewById(R.id.layout_img_down);
+        DownInfoDTO[] arrayDown = screenDTO.getDownInfo();
+        for (int i = 0; i < arrayDown.length;i++){
+            downName.append(arrayDown[i].getName());
+            downName.append("\n");
+
+        }
+
+    }
+
+    public void startInvest(View v){
+        Toast.makeText(getApplicationContext(),"No cookie for you!!!!",Toast.LENGTH_LONG).show();
     }
 }
